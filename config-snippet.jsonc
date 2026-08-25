@@ -1,0 +1,79 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "playwright": {
+      "type": "local",
+      "command": [
+        "npx",
+        "@playwright/mcp@latest"
+      ]
+    },
+    "opensandbox": {
+      "type": "local",
+      "command": [
+        "/home/salon/.local/bin/uvx",
+        "--python",
+        "3.12",
+        "--with",
+        "mcp<2",
+        "opensandbox-mcp",
+        "--domain",
+        "localhost:8080",
+        "--protocol",
+        "http"
+      ]
+    },
+    "memory": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "environment": {
+        "MEMORY_FILE_PATH": "/home/salon/.local/share/opencode/memory.json"
+      }
+    },
+    "sequential-thinking": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ]
+    },
+    "context7": {
+      "type": "local",
+      "command": [
+        "npx",
+        "-y",
+        "@upstash/context7-mcp"
+      ]
+    }
+  },
+  "permission": {
+    "read": "allow",
+    "edit": "allow",
+    "glob": "allow",
+    "grep": "allow",
+    "list": "allow",
+    "webfetch": "allow",
+    "websearch": "allow",
+    "bash": {
+      "*": "allow",
+      "rm -rf /*": "deny",
+      "rm -rf ~*": "deny",
+      "rm -rf .": "deny",
+      "mkfs*": "deny",
+      "dd if=* of=/dev/*": "deny",
+      ":(){ :|:& };:": "deny",
+      "sudo *": "ask",
+      "git push --force*": "ask",
+      "git reset --hard*": "ask",
+      "git clean -fd*": "ask",
+      "docker system prune*": "ask",
+      "docker volume rm*": "ask",
+      "chmod -R 777 *": "deny"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+[Unit]
+Description=OpenSandbox Server (Docker runtime)
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/home/salon/.local/bin/uvx --python 3.12 opensandbox-server
+Environment=OPENSANDBOX_INSECURE_SERVER=YES
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
